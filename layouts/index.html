@@ -73,6 +73,7 @@
   // Set the saved theme before paint to avoid a flash; "system" leaves no attribute.
   (function(){var m=localStorage.getItem('theme');if(m&&m!=='system')document.documentElement.setAttribute('data-theme',m);})();
 </script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 </head>
 <body>
   <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light, dark or system theme"><span id="theme-label">🖥️ System</span></button>
@@ -87,7 +88,7 @@
       <span class="pill">bytecode VM</span>
       <span class="pill">embedded front-end (eval/require)</span>
       <span class="pill">reuses Go's GC</span>
-      <span class="pill">Ruby 3.4 semantics</span>
+      <span class="pill">Ruby 4.0 semantics</span>
     </div>
     <div class="cta">
       <a class="btn primary" href="/docs/">Documentation</a>
@@ -120,7 +121,7 @@
       A bytecode VM with the front-end embedded keeps Ruby's dynamism — eval, runtime require,
       monkey-patching, method_missing — at your fingertips. Ruby objects are Go heap objects, so the
       Go garbage collector is reused. The standard library is selected at build time and tree-shaken.
-      Semantics track Ruby 3.4, grown test-first against an MRI differential oracle. The regexp engine
+      Semantics track Ruby 4.0, grown test-first against an MRI differential oracle. The regexp engine
       is a pure-Go reimplementation of Onigmo, developed in the sibling org
       <a href="https://github.com/go-onigmo">github.com/go-onigmo</a>.</p>
   </main>
