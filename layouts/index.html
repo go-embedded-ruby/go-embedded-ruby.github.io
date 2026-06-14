@@ -11,12 +11,24 @@
     --border: #d0d7de; --accent: #9B1C2E; --accent-fg: #ffffff;
     --ready: #1a7f37; --planned: #9a6700;
   }
+  /* System mode (no explicit choice) follows the OS preference. */
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme]) {
       --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --card: #161b22;
       --border: #30363d; --accent: #F0475A; --accent-fg: #0d1117;
       --ready: #3fb950; --planned: #d29922;
     }
+  }
+  /* Forced dark (manual toggle). */
+  :root[data-theme="dark"] {
+    --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --card: #161b22;
+    --border: #30363d; --accent: #F0475A; --accent-fg: #0d1117;
+    --ready: #3fb950; --planned: #d29922;
+  }
+  .theme-toggle {
+    position: fixed; top: 14px; right: 14px; z-index: 10;
+    font: inherit; font-size: .8rem; cursor: pointer; padding: 6px 12px;
+    color: var(--fg); background: var(--card); border: 1px solid var(--border); border-radius: 999px;
   }
   * { box-sizing: border-box; }
   body {
@@ -57,8 +69,13 @@
   footer { color: var(--muted); text-align: center; padding: 40px 0 56px; font-size: .9rem; }
   a { color: var(--accent); }
 </style>
+<script>
+  // Set the saved theme before paint to avoid a flash; "system" leaves no attribute.
+  (function(){var m=localStorage.getItem('theme');if(m&&m!=='system')document.documentElement.setAttribute('data-theme',m);})();
+</script>
 </head>
 <body>
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light, dark or system theme"><span id="theme-label">🖥️ System</span></button>
   <header class="wrap">
     <img class="logo" width="120" height="120" alt="go-embedded-ruby"
          src="https://raw.githubusercontent.com/go-embedded-ruby/brand/main/png/color/256/go-embedded-ruby.png">
@@ -111,5 +128,15 @@
   <footer class="wrap">
     BSD-3-Clause · <a href="https://github.com/go-embedded-ruby">github.com/go-embedded-ruby</a>
   </footer>
+  <script>
+  (function(){
+    var order=['system','light','dark'], root=document.documentElement;
+    var labels={system:'🖥️ System',light:'☀️ Light',dark:'🌙 Dark'};
+    function apply(m){ if(m==='system'){root.removeAttribute('data-theme');}else{root.setAttribute('data-theme',m);} localStorage.setItem('theme',m); var el=document.getElementById('theme-label'); if(el)el.textContent=labels[m]; }
+    var mode=localStorage.getItem('theme')||'system'; apply(mode);
+    var btn=document.getElementById('theme-toggle');
+    if(btn) btn.addEventListener('click',function(){ mode=order[(order.indexOf(mode)+1)%order.length]; apply(mode); });
+  })();
+  </script>
 </body>
 </html>
