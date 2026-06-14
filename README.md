@@ -1,3 +1,5 @@
+<p align="center"><img src="https://raw.githubusercontent.com/go-embedded-ruby/brand/main/social/go-embedded-ruby.png" alt="go-embedded-ruby/go-embedded-ruby.github.io" width="720"></p>
+
 # go-embedded-ruby.github.io
 
 The organization's institutional landing page, served at

@@ -11,7 +11,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
   blurb = "Lexer → parser → compiler → bytecode VM, end to end. Integers, floats, strings, locals, arithmetic, if/unless, while/until, statement modifiers, def + recursion. Runs `puts 1 + 2` and `fib(20)`."
 [[params.phases]]
   name = "Phase 1 — Object model & dispatch"
-  status = "planned"
+  status = "ready"
   blurb = "Classes, modules, mutable method tables, singleton classes, blocks & yield, Proc/lambda, method_missing — the live object model that makes monkey-patching free."
 [[params.phases]]
   name = "Phase 2 — Core types & mixins"
