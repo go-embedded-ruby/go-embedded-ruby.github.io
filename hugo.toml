@@ -16,11 +16,11 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.phases]]
   name = "Phase 2 — Core types & mixins"
   status = "active"
-  blurb = "Integer, Float, immutable String, Symbol, Array, ordered Hash, Range (incl. beginless/endless). Full argument system (optional/`*splat`/keyword/`**rest`/`&block`), Proc/lambda/stabby `->(){}`, `Symbol#to_proc`, class methods, `attr_accessor`, `Struct`. Comparable and Enumerable written once, in embedded Ruby."
+  blurb = "Integer (with **Bignum** promotion + arbitrary-precision literals), Float, immutable String, Symbol, Array, ordered Hash, Range (incl. beginless/endless). Full argument system (optional/`*splat`/keyword/`**rest`/`&block`), Proc/lambda/stabby `->(){}`, `Symbol#to_proc`, class methods, `attr_accessor`, `Struct`. Comparable and Enumerable written once, in embedded Ruby."
 [[params.phases]]
   name = "Phase 3 — Control flow & Fiber"
   status = "active"
-  blurb = "Exception hierarchy, `raise`/`rescue`/`ensure`/`else`/`retry` (block- and method-level), non-local `break`/`next`. Fiber, Enumerator and lazy still ahead."
+  blurb = "Exception hierarchy, `raise`/`rescue`/`ensure`/`else`/`retry` (block- and method-level), non-local `break`/`next`, `Kernel#loop`. Fiber, Enumerator and lazy still ahead."
 [[params.phases]]
   name = "Phase 4 — Metaprogramming"
   status = "active"
@@ -28,7 +28,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.phases]]
   name = "Phase 5 — Full front-end"
   status = "active"
-  blurb = "Interpolation, keyword args, endless methods (`def foo = expr`), beginless/endless ranges and the stabby lambda already landed. Heredocs, %-literals, multiple assignment, pattern matching `case/in`, safe navigation and numbered params still ahead."
+  blurb = "Interpolation, keyword args, endless methods (`def foo = expr`), beginless/endless ranges, the stabby lambda, multiple assignment, full pattern matching `case/in` (value/bind/class/array/hash/find/pin/alternative, guards, one-line `=>`/`in`), safe navigation `&.` and numbered params (`_1`/`it`) already landed. Heredocs and %-literals still ahead."
 [[params.phases]]
   name = "Phase 6 — Standard library"
   status = "active"
