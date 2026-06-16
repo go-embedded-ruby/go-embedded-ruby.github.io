@@ -12,27 +12,27 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.phases]]
   name = "Phase 1 — Object model & dispatch"
   status = "ready"
-  blurb = "Classes, modules, mutable method tables, singleton classes, blocks & yield, Proc/lambda, method_missing — the live object model that makes monkey-patching free."
+  blurb = "Classes, modules, inheritance, mutable method tables, `@ivars`, `new`/`initialize`, constants, `include` mixins, `super`, blocks & `yield`, `block_given?`, method_missing — the live object model that makes monkey-patching free."
 [[params.phases]]
   name = "Phase 2 — Core types & mixins"
-  status = "planned"
-  blurb = "Integer (bignum), Float, byte-based String + encodings, Symbol, Array, ordered Hash, Range. Comparable and Enumerable written once, in embedded Ruby."
+  status = "active"
+  blurb = "Integer, Float, immutable String, Symbol, Array, ordered Hash, Range (incl. beginless/endless). Full argument system (optional/`*splat`/keyword/`**rest`/`&block`), Proc/lambda/stabby `->(){}`, `Symbol#to_proc`, class methods, `attr_accessor`, `Struct`. Comparable and Enumerable written once, in embedded Ruby."
 [[params.phases]]
   name = "Phase 3 — Control flow & Fiber"
-  status = "planned"
-  blurb = "Exceptions via catch tables, raise/rescue/ensure/retry, non-local break/next/redo/return, Fiber on goroutines, Enumerator and lazy."
+  status = "active"
+  blurb = "Exception hierarchy, `raise`/`rescue`/`ensure`/`else`/`retry` (block- and method-level), non-local `break`/`next`. Fiber, Enumerator and lazy still ahead."
 [[params.phases]]
   name = "Phase 4 — Metaprogramming"
-  status = "planned"
-  blurb = "define_method, instance/class_eval, constant machinery, hooks (included/inherited/method_added), and string eval."
+  status = "active"
+  blurb = "`define_method`, `instance_eval`/`instance_exec`, `class_eval`/`module_eval`/`class_exec`, `send`/`public_send`, `respond_to?`, `instance_variable_get`/`set`/`defined?`, `tap`/`then`. Hooks and string eval still ahead."
 [[params.phases]]
   name = "Phase 5 — Full front-end"
-  status = "planned"
-  blurb = "Heredocs, interpolation, %-literals, multiple assignment, keyword args, pattern matching, endless methods, safe navigation, numbered params."
+  status = "active"
+  blurb = "Interpolation, keyword args, endless methods (`def foo = expr`), beginless/endless ranges and the stabby lambda already landed. Heredocs, %-literals, multiple assignment, pattern matching `case/in`, safe navigation and numbered params still ahead."
 [[params.phases]]
   name = "Phase 6 — Standard library"
-  status = "planned"
-  blurb = "IO/File/Time/Random/Thread, Regexp (pure-Go Onigmo via the go-onigmo org), Marshal, embedded pure-Ruby libs, Go-native leaves (json, digest, zlib)."
+  status = "active"
+  blurb = "Regexp bridge landed: `/re/imx` literals, `Regexp`/`MatchData`, `=~`/`match`/`scan`/`gsub`/`sub`/`split` and the match globals, on the pure-Go Onigmo engine (go-onigmo org). IO/File/Time/Random/Thread, Marshal, embedded pure-Ruby libs and Go-native leaves (json, digest, zlib) still ahead."
 [[params.phases]]
   name = "Phase 7 — Build toolchain"
   status = "planned"

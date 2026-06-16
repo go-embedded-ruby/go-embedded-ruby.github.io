@@ -9,21 +9,21 @@
   :root {
     --bg: #ffffff; --fg: #1b1f24; --muted: #57606a; --card: #f6f8fa;
     --border: #d0d7de; --accent: #9B1C2E; --accent-fg: #ffffff;
-    --ready: #1a7f37; --planned: #9a6700;
+    --ready: #1a7f37; --active: #0969da; --planned: #9a6700;
   }
   /* System mode (no explicit choice) follows the OS preference. */
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme]) {
       --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --card: #161b22;
       --border: #30363d; --accent: #F0475A; --accent-fg: #0d1117;
-      --ready: #3fb950; --planned: #d29922;
+      --ready: #3fb950; --active: #4493f8; --planned: #d29922;
     }
   }
   /* Forced dark (manual toggle). */
   :root[data-theme="dark"] {
     --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --card: #161b22;
     --border: #30363d; --accent: #F0475A; --accent-fg: #0d1117;
-    --ready: #3fb950; --planned: #d29922;
+    --ready: #3fb950; --active: #4493f8; --planned: #d29922;
   }
   .theme-toggle {
     position: fixed; top: 14px; right: 14px; z-index: 10;
@@ -64,6 +64,7 @@
   .card p code { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; }
   .status { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); white-space: nowrap; }
   .status.ready { color: var(--ready); }
+  .status.active { color: var(--active); }
   .status.planned { color: var(--planned); }
   .principles { color: var(--muted); text-align: center; padding: 10px 0 0; }
   footer { color: var(--muted); text-align: center; padding: 40px 0 56px; font-size: .9rem; }
@@ -89,6 +90,11 @@
       <span class="pill">embedded front-end (eval/require)</span>
       <span class="pill">reuses Go's GC</span>
       <span class="pill">Ruby 4.0 semantics</span>
+      <span class="pill">classes · modules · metaprogramming</span>
+      <span class="pill">blocks · Procs · lambdas</span>
+      <span class="pill">regexp (pure-Go Onigmo)</span>
+      <span class="pill">100% coverage · 6 arches</span>
+      <span class="pill">differential-tested vs MRI 4.0.5</span>
     </div>
     <div class="cta">
       <a class="btn primary" href="/docs/">Documentation</a>
@@ -121,8 +127,10 @@
       A bytecode VM with the front-end embedded keeps Ruby's dynamism — eval, runtime require,
       monkey-patching, method_missing — at your fingertips. Ruby objects are Go heap objects, so the
       Go garbage collector is reused. The standard library is selected at build time and tree-shaken.
-      Semantics track Ruby 4.0, grown test-first against an MRI differential oracle. The regexp engine
-      is a pure-Go reimplementation of Onigmo, developed in the sibling org
+      Semantics track Ruby 4.0, grown test-first against an MRI 4.0.5 differential oracle, with
+      <strong>100% coverage enforced in CI across all six 64-bit architectures</strong> (amd64, arm64,
+      riscv64, loong64, ppc64le, s390x) and three OSes. The regexp engine is a pure-Go reimplementation
+      of Onigmo, developed in the sibling org
       <a href="https://github.com/go-onigmo">github.com/go-onigmo</a>.</p>
   </main>
 
