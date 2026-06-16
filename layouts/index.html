@@ -66,6 +66,8 @@
   .status.ready { color: var(--ready); }
   .status.active { color: var(--active); }
   .status.planned { color: var(--planned); }
+  .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; margin: 4px 0 8px; padding: 0; list-style: none; font-size: .9rem; color: var(--muted); }
+  .legend li { display: flex; align-items: center; gap: 8px; }
   .principles { color: var(--muted); text-align: center; padding: 10px 0 0; }
   footer { color: var(--muted); text-align: center; padding: 40px 0 56px; font-size: .9rem; }
   a { color: var(--accent); }
@@ -123,6 +125,11 @@
       </article>
       {{ end }}
     </section>
+    <ul class="legend" aria-label="What the phase status labels mean">
+      <li><span class="status ready">ready</span> phase complete (exit criteria met, nothing material left)</li>
+      <li><span class="status active">active</span> in progress (substantial work shipped, phase not yet finished)</li>
+      <li><span class="status planned">planned</span> not started yet</li>
+    </ul>
     <p class="principles">Pure Go with cgo disabled, so it cross-compiles to a single static binary.
       A bytecode VM with the front-end embedded keeps Ruby's dynamism — eval, runtime require,
       monkey-patching, method_missing — at your fingertips. Ruby objects are Go heap objects, so the
