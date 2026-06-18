@@ -28,7 +28,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.phases]]
   name = "Phase 5 — Full front-end"
   status = "active"
-  blurb = "Interpolation, keyword args, endless methods (`def foo = expr`), beginless/endless ranges, the stabby lambda, multiple assignment, full pattern matching `case/in` (value/bind/class/array/hash/find/pin/alternative, guards, one-line `=>`/`in`), safe navigation `&.` and numbered params (`_1`/`it`) already landed. Heredocs and %-literals still ahead."
+  blurb = "Interpolation, keyword args, endless methods (`def foo = expr`), beginless/endless ranges, the stabby lambda, multiple assignment, full pattern matching `case/in` (value/bind/class/array/hash/find/pin/alternative, guards, one-line `=>`/`in`), safe navigation `&.`, numbered params (`_1`/`it`), heredocs (`<<`/`<<-`/`<<~`) and `%w`/`%i` arrays already landed. `%q`/`%Q`/`%W`/`%I` literals still ahead."
 [[params.phases]]
   name = "Phase 6 — Standard library"
   status = "active"
