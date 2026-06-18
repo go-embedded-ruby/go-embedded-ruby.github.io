@@ -16,7 +16,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.phases]]
   name = "Phase 2 — Core types & mixins"
   status = "active"
-  blurb = "Integer (with **Bignum** promotion + arbitrary-precision literals), Float, immutable String, Symbol, Array, ordered Hash, Range (incl. beginless/endless). Full argument system (optional/`*splat`/keyword/`**rest`/`&block`), Proc/lambda/stabby `->(){}`, `Symbol#to_proc`, class methods, `attr_accessor`, `Struct`. Comparable and Enumerable written once, in embedded Ruby."
+  blurb = "Integer (with **Bignum** promotion + arbitrary-precision literals), Float, mutable String, Symbol, Array, ordered Hash, Range (incl. beginless/endless). Full argument system (optional/`*splat`/keyword/`**rest`/`&block`), Proc/lambda/stabby `->(){}`, `Symbol#to_proc`, class methods, `attr_accessor`, `Struct`. Comparable and Enumerable written once, in embedded Ruby."
 [[params.phases]]
   name = "Phase 3 — Control flow & Fiber"
   status = "active"
