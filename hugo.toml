@@ -20,19 +20,19 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.phases]]
   name = "Phase 3 — Control flow & Fiber"
   status = "active"
-  blurb = "Exception hierarchy, `raise`/`rescue`/`ensure`/`else`/`retry` (block- and method-level), non-local `break`/`next`, `Kernel#loop`. Fiber, Enumerator and lazy still ahead."
+  blurb = "Exception hierarchy, `raise`/`rescue`/`ensure`/`else`/`retry` (block- and method-level), non-local `break`/`next`, `Kernel#loop`, and the eager **Enumerator** — every blockless iterator returns one, with `next`/`peek`/`rewind`/`with_index`/`to_a` and full Enumerable chaining. Fiber and lazy still ahead."
 [[params.phases]]
   name = "Phase 4 — Metaprogramming"
   status = "active"
-  blurb = "`define_method`, `instance_eval`/`instance_exec`, `class_eval`/`module_eval`/`class_exec`, `send`/`public_send`, `respond_to?`, `instance_variable_get`/`set`/`defined?`, `tap`/`then`. Hooks and string eval still ahead."
+  blurb = "`define_method`, `instance_eval`/`instance_exec`, `class_eval`/`module_eval`/`class_exec`, `send`/`public_send`, `respond_to?`, `instance_variable_get`/`set`/`defined?`, `tap`/`then`, the hooks `included`/`inherited`/`method_added`/`extended`, `define_singleton_method`/`extend` and `def obj.foo` syntax, **`@@class variables`**, **`$global variables`**, and string `eval`. `prepend` still ahead."
 [[params.phases]]
   name = "Phase 5 — Full front-end"
   status = "active"
-  blurb = "Interpolation, keyword args, endless methods (`def foo = expr`), beginless/endless ranges, the stabby lambda, multiple assignment, full pattern matching `case/in` (value/bind/class/array/hash/find/pin/alternative, guards, one-line `=>`/`in`), safe navigation `&.`, numbered params (`_1`/`it`), modifier `rescue`, heredocs (`<<`/`<<-`/`<<~`, interpolating and literal) and `%w`/`%i` arrays already landed. `%q`/`%Q`/`%W`/`%I` literals still ahead."
+  blurb = "Interpolation, keyword args, endless methods (`def foo = expr`), beginless/endless ranges, the stabby lambda, multiple assignment, full pattern matching `case/in` (value/bind/class/array/hash/find/pin/alternative, guards, one-line `=>`/`in`), safe navigation `&.`, numbered params (`_1`/`it`), modifier `rescue`, heredocs (`<<`/`<<-`/`<<~`, interpolating and literal), `%w`/`%i` arrays and the `%q`/`%Q`/`%W`/`%I` literals already landed."
 [[params.phases]]
   name = "Phase 6 — Standard library"
   status = "active"
-  blurb = "Regexp bridge landed: `/re/imx` literals, `Regexp`/`MatchData`, `=~`/`match`/`scan`/`gsub`/`sub`/`split` and the match globals, on the pure-Go Onigmo engine (go-onigmo org). IO/File/Time/Random/Thread, Marshal, embedded pure-Ruby libs and Go-native leaves (json, digest, zlib) still ahead."
+  blurb = "Regexp bridge landed: `/re/imx` literals, `Regexp`/`MatchData`, `=~`/`match`/`scan`/`gsub`/`sub`/`split` and the match globals, on the pure-Go Onigmo engine (go-onigmo org). `Time`/`Date`/`BigDecimal`, `Set`/`Bag`, and the Go-native leaves `JSON`/`Digest`/`Base64` landed too. IO/File/Random/Thread, Marshal and zlib still ahead."
 [[params.phases]]
   name = "Phase 7 — Build toolchain"
   status = "planned"
