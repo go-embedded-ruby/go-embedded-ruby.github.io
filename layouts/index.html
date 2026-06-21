@@ -97,6 +97,9 @@
       <span class="pill">pattern matching (case/in)</span>
       <span class="pill">Bignum (arbitrary precision)</span>
       <span class="pill">regexp (pure-Go Onigmo)</span>
+      <span class="pill">scientific stack: NDArray · FFT · images</span>
+      <span class="pill">Complex · Rational · Set</span>
+      <span class="pill">runs in the browser (WebAssembly)</span>
       <span class="pill">100% coverage · 6 arches</span>
       <span class="pill">differential-tested vs MRI 4.0.5</span>
     </div>
@@ -141,6 +144,16 @@
       riscv64, loong64, ppc64le, s390x) and three OSes. The regexp engine is a pure-Go reimplementation
       of Onigmo, developed in the sibling org
       <a href="https://github.com/go-onigmo">github.com/go-onigmo</a>.</p>
+    <p class="principles">Beyond the language, a <strong>cgo-free scientific stack</strong> ships as
+      built-in Ruby classes, each binding a pure-Go sibling library:
+      <a href="https://github.com/go-ndarray/ndarray">NDArray</a> (NumPy-style n-dimensional arrays),
+      an <a href="https://github.com/go-fft/fft">FFT</a> module (numpy.fft-style transforms, no FFTW),
+      <a href="https://github.com/go-images/images">Image</a> (scikit-image-style processing) and
+      <a href="https://github.com/go-composites/set">Set</a> — alongside <code>Complex</code>,
+      <code>Rational</code> and <code>Math</code>. Because the whole stack is pure Go it also compiles to
+      <strong>WebAssembly and runs entirely in the browser</strong>: a
+      <a href="https://github.com/go-embedded-ruby/ruby/tree/main/web">playground</a> offers a Ruby REPL
+      and an image pipeline (load → blur/edges → render) with no server-side code.</p>
   </main>
 
   <footer class="wrap">
