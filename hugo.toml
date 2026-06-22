@@ -32,7 +32,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.phases]]
   name = "Phase 6 — Standard library"
   status = "active"
-  blurb = "Regexp bridge landed: `/re/imx` literals, `Regexp`/`MatchData`, `=~`/`match`/`scan`/`gsub`/`sub`/`split` and the match globals, on the pure-Go Onigmo engine (go-onigmo org). `Time`/`Date`/`BigDecimal`, `Set`/`Bag`, and the Go-native leaves `JSON`/`Digest`/`Base64`, **`File`** (path helpers + read/write/stat, `Errno::ENOENT`), a bit-exact **`Random`** (seeded MT19937) and **`Zlib`** (crc32/adler32 + Deflate/Inflate) landed too. Full IO, Thread and Marshal still ahead."
+  blurb = "Regexp bridge landed: `/re/imx` literals, `Regexp`/`MatchData`, `=~`/`match`/`scan`/`gsub`/`sub`/`split` and the match globals, on the pure-Go Onigmo engine (go-ruby-regexp org). `Time`/`Date`/`BigDecimal`, `Set`/`Bag`, and the Go-native leaves `JSON`/`Digest`/`Base64`, **`File`** (path helpers + read/write/stat, `Errno::ENOENT`), a bit-exact **`Random`** (seeded MT19937) and **`Zlib`** (crc32/adler32 + Deflate/Inflate) landed too. Full IO, Thread and Marshal still ahead."
 [[params.phases]]
   name = "Phase 7 — Build toolchain"
   status = "planned"
