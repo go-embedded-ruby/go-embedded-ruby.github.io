@@ -24,7 +24,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.phases]]
   name = "Phase 4 — Metaprogramming"
   status = "ready"
-  blurb = "`define_method`, `instance_eval`/`instance_exec`, `class_eval`/`module_eval`/`class_exec`, `send`/`public_send`, `respond_to?`, `instance_variable_get`/`set`/`defined?`, `tap`/`then`, the hooks `included`/`inherited`/`method_added`/`extended`, `define_singleton_method`/`extend` and `def obj.foo` syntax, **`@@class variables`**, **`$global variables`**, string `eval`, and **`prepend`** with an ancestor-chain `super` (walks included/prepended modules and the singleton chain; `Module#ancestors`/`include?`, `Kernel` modelled)."
+  blurb = "`define_method`, `instance_eval`/`instance_exec`, `class_eval`/`module_eval`/`class_exec`, `send`/`public_send`, `respond_to?`, `instance_variable_get`/`set`/`defined?`, `tap`/`then`, the hooks `included`/`inherited`/`method_added`/`extended`, `define_singleton_method`/`extend` and `def obj.foo` syntax, **`@@class variables`**, **`$global variables`**, string `eval`, **`Binding`** (`binding`/`Binding#eval`/`eval(str, binding)` + `local_variable_get`/`set`/`local_variables`/`receiver` — eval against a captured frame's locals), and **`prepend`** with an ancestor-chain `super` (walks included/prepended modules and the singleton chain; `Module#ancestors`/`include?`, `Kernel` modelled)."
 [[params.phases]]
   name = "Phase 5 — Full front-end"
   status = "active"
@@ -32,7 +32,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.phases]]
   name = "Phase 6 — Standard library"
   status = "active"
-  blurb = "Regexp bridge landed: `/re/imx` literals, `Regexp`/`MatchData`, `=~`/`match`/`scan`/`gsub`/`sub`/`split` and the match globals, on the pure-Go Onigmo engine (go-ruby-regexp org). `Time`/`Date`/`BigDecimal`, `Set`/`Bag`, and the Go-native leaves `JSON`/`Digest`/`Base64`, **`File`** (path helpers + read/write/stat, `Errno::ENOENT`), a bit-exact **`Random`** (seeded MT19937), **`Zlib`** (crc32/adler32 + Deflate/Inflate) a **byte-exact `Marshal`** (`dump`/`load`, on the pure-Go go-ruby-marshal engine) **`Thread`/`Mutex`/`Queue`** on an emulated GVL (MRI memory model, race-free), **`IO`/`StringIO`** (`$stdout`/`$stderr` as objects, output capture) and **`Dir`** (entries/glob/mkdir/chdir) landed too. File streams via `File.open` still ahead."
+  blurb = "Regexp bridge landed: `/re/imx` literals, `Regexp`/`MatchData`, `=~`/`match`/`scan`/`gsub`/`sub`/`split` and the match globals, on the pure-Go Onigmo engine (go-ruby-regexp org). `Time`/`Date`/`BigDecimal`, `Set`/`Bag`, and the Go-native leaves `JSON`/`Digest`/`Base64`, **`File`** (path helpers + read/write/stat, `Errno::ENOENT`), a bit-exact **`Random`** (seeded MT19937), **`Zlib`** (crc32/adler32 + Deflate/Inflate) a **byte-exact `Marshal`** (`dump`/`load`, on the pure-Go go-ruby-marshal engine) **`Thread`/`Mutex`/`Queue`** on an emulated GVL (MRI memory model, race-free), **`IO`/`StringIO`** (`$stdout`/`$stderr` as objects, output capture) **`Dir`** (entries/glob/mkdir/chdir) and **`File.open` streams** (`File < IO`, modes `r`/`w`/`a`/`+`, block form auto-flush/close, `readlines`/`foreach`) landed too."
 [[params.phases]]
   name = "Phase 7 — Build toolchain"
   status = "planned"
