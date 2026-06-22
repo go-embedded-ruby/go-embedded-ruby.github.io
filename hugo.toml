@@ -35,8 +35,8 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
   blurb = "Regexp bridge landed: `/re/imx` literals, `Regexp`/`MatchData`, `=~`/`match`/`scan`/`gsub`/`sub`/`split` and the match globals, on the pure-Go Onigmo engine (go-ruby-regexp org). `Time`/`Date`/`BigDecimal`, `Set`/`Bag`, and the Go-native leaves `JSON`/`Digest`/`Base64`, **`File`** (path helpers + read/write/stat, `Errno::ENOENT`), a bit-exact **`Random`** (seeded MT19937), **`Zlib`** (crc32/adler32 + Deflate/Inflate) a **byte-exact `Marshal`** (`dump`/`load`, on the pure-Go go-ruby-marshal engine) **`Thread`/`Mutex`/`Queue`** on an emulated GVL (MRI memory model, race-free), **`IO`/`StringIO`** (`$stdout`/`$stderr` as objects, output capture) **`Dir`** (entries/glob/mkdir/chdir) and **`File.open` streams** (`File < IO`, modes `r`/`w`/`a`/`+`, block form auto-flush/close, `readlines`/`foreach`) landed too."
 [[params.phases]]
   name = "Phase 7 — Build toolchain"
-  status = "planned"
-  blurb = "rbgo build: scan the require graph, tree-shake the stdlib with build tags, embed bytecode, emit one static binary. Closed-world mode drops the front-end."
+  status = "ready"
+  blurb = "rbgo build landed: AOT method compilation to native Go (unboxed int64 kernels beat MRI+YJIT ~4×), and **closed-world builds** (`rbgo build --closed`) that bake the program in as bytecode, load the prelude from frozen bytecode, and drop the lexer/parser/compiler — a smaller, self-contained binary that runs with no source file."
 [[params.phases]]
   name = "Phase 8 — Conformance & performance"
   status = "planned"
