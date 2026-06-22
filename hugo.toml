@@ -39,5 +39,5 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
   blurb = "rbgo build landed: AOT method compilation to native Go (unboxed int64 kernels beat MRI+YJIT ~4×), and **closed-world builds** (`rbgo build --closed`) that bake the program in as bytecode, load the prelude from frozen bytecode, and drop the lexer/parser/compiler — a smaller, self-contained binary that runs with no source file."
 [[params.phases]]
   name = "Phase 8 — Conformance & performance"
-  status = "planned"
-  blurb = "ruby/spec subset, inline method caches, fixnum cache, reduced boxing."
+  status = "active"
+  blurb = "ruby/spec subset, inline method caches, fixnum cache, reduced boxing. Started: small-integer interning (a small-int loop drops from ~245k allocations to 1) and frame-environment recycling (per-call frames are pooled with capture tracking — fib's call allocations halve, ~14% faster)."
