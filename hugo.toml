@@ -20,7 +20,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.phases]]
   name = "Phase 3 — Control flow & Fiber"
   status = "active"
-  blurb = "Exception hierarchy, `raise`/`rescue`/`ensure`/`else`/`retry` (block- and method-level), non-local `break`/`next`, `Kernel#loop`, and the eager **Enumerator** — every blockless iterator returns one, with `next`/`peek`/`rewind`/`with_index`/`to_a` and full Enumerable chaining. Fiber and lazy still ahead."
+  blurb = "Exception hierarchy, `raise`/`rescue`/`ensure`/`else`/`retry` (block- and method-level), non-local `break`/`next`, `Kernel#loop`, and the eager **Enumerator** — every blockless iterator returns one, with `next`/`peek`/`rewind`/`with_index`/`to_a` and full Enumerable chaining, plus **Enumerator::Lazy** (`lazy`) for deferred chains over finite or infinite (`Float::INFINITY`) sources. Fiber still ahead."
 [[params.phases]]
   name = "Phase 4 — Metaprogramming"
   status = "ready"
@@ -32,7 +32,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
 [[params.phases]]
   name = "Phase 6 — Standard library"
   status = "active"
-  blurb = "Regexp bridge landed: `/re/imx` literals, `Regexp`/`MatchData`, `=~`/`match`/`scan`/`gsub`/`sub`/`split` and the match globals, on the pure-Go Onigmo engine (go-onigmo org). `Time`/`Date`/`BigDecimal`, `Set`/`Bag`, and the Go-native leaves `JSON`/`Digest`/`Base64` landed too. IO/File/Random/Thread, Marshal and zlib still ahead."
+  blurb = "Regexp bridge landed: `/re/imx` literals, `Regexp`/`MatchData`, `=~`/`match`/`scan`/`gsub`/`sub`/`split` and the match globals, on the pure-Go Onigmo engine (go-onigmo org). `Time`/`Date`/`BigDecimal`, `Set`/`Bag`, and the Go-native leaves `JSON`/`Digest`/`Base64`, **`File`** (path helpers + read/write/stat, `Errno::ENOENT`), a bit-exact **`Random`** (seeded MT19937) and **`Zlib`** (crc32/adler32 + Deflate/Inflate) landed too. Full IO, Thread and Marshal still ahead."
 [[params.phases]]
   name = "Phase 7 — Build toolchain"
   status = "planned"
