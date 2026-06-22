@@ -23,8 +23,8 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
   blurb = "Exception hierarchy, `raise`/`rescue`/`ensure`/`else`/`retry` (block- and method-level), non-local `break`/`next`, `Kernel#loop`, and the eager **Enumerator** — every blockless iterator returns one, with `next`/`peek`/`rewind`/`with_index`/`to_a` and full Enumerable chaining. Fiber and lazy still ahead."
 [[params.phases]]
   name = "Phase 4 — Metaprogramming"
-  status = "active"
-  blurb = "`define_method`, `instance_eval`/`instance_exec`, `class_eval`/`module_eval`/`class_exec`, `send`/`public_send`, `respond_to?`, `instance_variable_get`/`set`/`defined?`, `tap`/`then`, the hooks `included`/`inherited`/`method_added`/`extended`, `define_singleton_method`/`extend` and `def obj.foo` syntax, **`@@class variables`**, **`$global variables`**, and string `eval`. `prepend` still ahead."
+  status = "ready"
+  blurb = "`define_method`, `instance_eval`/`instance_exec`, `class_eval`/`module_eval`/`class_exec`, `send`/`public_send`, `respond_to?`, `instance_variable_get`/`set`/`defined?`, `tap`/`then`, the hooks `included`/`inherited`/`method_added`/`extended`, `define_singleton_method`/`extend` and `def obj.foo` syntax, **`@@class variables`**, **`$global variables`**, string `eval`, and **`prepend`** with an ancestor-chain `super` (walks included/prepended modules and the singleton chain; `Module#ancestors`/`include?`, `Kernel` modelled)."
 [[params.phases]]
   name = "Phase 5 — Full front-end"
   status = "active"
