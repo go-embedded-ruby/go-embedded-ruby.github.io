@@ -102,7 +102,7 @@
       <span class="pill">Complex · Rational · Set</span>
       <span class="pill">runs in the browser (WebAssembly)</span>
       <span class="pill">100% coverage · 6 arches</span>
-      <span class="pill">differential-tested vs MRI 4.0.5</span>
+      <span class="pill">differential-tested vs MRI + JRuby</span>
     </div>
     <div class="cta">
       <a class="btn primary" href="/docs/">Documentation</a>
@@ -140,7 +140,7 @@
       A bytecode VM with the front-end embedded keeps Ruby's dynamism — eval, runtime require,
       monkey-patching, method_missing — at your fingertips. Ruby objects are Go heap objects, so the
       Go garbage collector is reused. The standard library is selected at build time and tree-shaken.
-      Semantics track Ruby 4.0, grown test-first against an MRI 4.0.5 differential oracle, with
+      Semantics track Ruby 4.0, grown test-first against an MRI 4.0.5 and JRuby differential oracle, with
       <strong>100% coverage enforced in CI across all six 64-bit architectures</strong> (amd64, arm64,
       riscv64, loong64, ppc64le, s390x) and three OSes. Two core pieces are reusable pure-Go modules in
       sibling orgs, imported by the interpreter (and usable by any Go program without cgo): the
@@ -160,6 +160,15 @@
       <strong>WebAssembly and runs entirely in the browser</strong>: a
       <a href="https://github.com/go-embedded-ruby/ruby/tree/main/web">playground</a> offers a Ruby REPL
       and an image pipeline (load → blur/edges → render) with no server-side code.</p>
+    <p class="principles"><strong>Conformance &amp; benchmarking.</strong> Correctness is judged against
+      <strong>two independent reference implementations</strong> of Ruby 4.0 — <strong>MRI (CRuby) 4.0.5</strong>
+      and <strong>JRuby</strong> — with a three-way differential oracle
+      (<a href="https://github.com/go-embedded-ruby/ruby/blob/main/scripts/oracle.sh"><code>scripts/oracle.sh</code></a>
+      runs a snippet through all three and flags any divergence). Beyond synthetic tests, the bar is
+      real-world Ruby: idioms and test suites drawn from <strong>reference applications</strong> — Ruby on
+      Rails (ActiveSupport's pure-Ruby <code>core_ext</code>) and <strong>OpenVox</strong>/Puppet
+      (Ruby-heavy manifest evaluation) — drive the remaining work by demand and double as both conformance
+      corpora and performance baselines (pure-Go CGO=0 vs CRuby's C and JRuby's JVM JIT).</p>
   </main>
 
   <footer class="wrap">
