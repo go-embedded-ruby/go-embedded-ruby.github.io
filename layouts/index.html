@@ -105,7 +105,7 @@
       <span class="pill">differential-tested vs MRI · JRuby · TruffleRuby</span>
       <span class="pill">parses 100% of valid Rails + Puppet Ruby</span>
       <span class="pill">front-end: Rails 99.82% · Puppet 100% (parse + compile)</span>
-      <span class="pill">runs Puppet: boots · compiles · evaluates manifests</span>
+      <span class="pill">runs Puppet: <code>puppet apply</code> end-to-end</span>
       <span class="pill">AOT beats MRI+YJIT 18–24× on loop/fib</span>
     </div>
     <div class="cta">
@@ -187,22 +187,25 @@
       app additionally needs the runtime stdlib surface and C-extension equivalents. That surface is now real
       enough to boot a real application — see <strong>Running Puppet</strong> below — though running any given
       app end-to-end remains application-specific work.</em></p>
-    <p class="principles"><strong>Running Puppet.</strong> Beyond parsing real-world Ruby, rbgo now
-      <strong>runs <a href="https://github.com/puppetlabs/puppet">Puppet</a></strong>:
-      <code>require "puppet"</code> <strong>fully boots</strong> the framework (Puppet 8.11.0) on a pure-Go
-      CGO=0 <code>rbgo</code> — its pure-Ruby gem dependencies (<code>semantic_puppet</code>,
-      <code>concurrent-ruby</code>, <code>facter</code>, …) load on the <code>$LOAD_PATH</code> — and a manifest
-      then travels the real Puppet path: it <strong>parses to the Pops AST, compiles to a catalog, and
-      evaluates</strong>, so <code>notice("hi")</code> emits the genuine
-      <code>Notice: Scope(Class[main]): hi</code>. Reaching this implemented a large runtime surface — Ruby
-      conformance fixes (<code>autoload</code>, <code>ERB</code>, frame-based <code>Exception#backtrace</code>,
-      interpolated regexp literals, non-local block <code>return</code>, <code>Module.new</code>/<code>extend</code>
-      transitivity, …) plus pure-Go stdlib modules (<code>openssl</code> with real crypto, <code>net/http</code>,
-      <code>resolv</code>, <code>StringScanner</code>, <code>fileutils</code>, …) — and validates the
-      <strong>C-extension → pure-Go shim</strong> strategy that ships real Ruby apps as one static CGO=0 binary.
-      <em>Honest frontier:</em> what works is <strong>boot → parse → compile → evaluate</strong>; full
-      <code>puppet apply</code> — the transaction / resource-provider layer that mutates host state — is the
-      <strong>active next milestone</strong>, not done.</p>
+    <p class="principles"><strong>Running Puppet.</strong> Beyond parsing real-world Ruby, rbgo now runs the
+      real <strong><a href="https://github.com/puppetlabs/puppet">Puppet</a> <code>puppet apply</code> CLI
+      end-to-end</strong>: <code>require "puppet"</code> <strong>fully boots</strong> the framework
+      (Puppet 8.11.0) on a pure-Go CGO=0 <code>rbgo</code> — its pure-Ruby gem dependencies
+      (<code>semantic_puppet</code>, <code>concurrent-ruby</code>, <code>facter</code>, …) load on the
+      <code>$LOAD_PATH</code> — and a manifest then travels the <strong>complete</strong> Puppet path: the
+      genuine <code>Puppet::Util::CommandLine</code> → <code>Puppet::Application::Apply</code> entry point
+      (real <code>OptionParser</code>), every type + provider loaded, the settings catalog applied to disk,
+      then the user catalog applied through the transaction / RAL. The real CLI emits genuine Puppet output and
+      exits <code>0</code> — <code>apply -e 'notify { "hello": message =&gt; "hi from rbgo cli" }'</code> prints
+      <code>Notice: hi from rbgo cli</code> and <code>Notice: …/Notify[hello]/message: defined 'message' as 'hi
+      from rbgo cli'</code>. Reaching the CLI added a real <code>OptionParser</code>,
+      <code>File::Stat</code>/<code>FileTest</code> + on-disk filesystem ops, and deep Ruby fixes
+      (<code>class_eval</code> lexical scope, <code>return</code> in <code>define_method</code>, class-method
+      <code>super</code>, …) — validating the <strong>C-extension → pure-Go shim</strong> strategy that ships
+      real Ruby apps as one static CGO=0 binary.
+      <em>Honest frontier:</em> what runs end-to-end is the <code>notify</code> resource applying through the
+      transaction; real file/package/service resource <strong>providers</strong> (host convergence) and
+      run-report persistence are the <strong>active next milestone</strong>, not done.</p>
     <p class="principles"><strong>Performance.</strong> A 6-runtime comparative suite pits rbgo and
       <strong>rbgo+AOT</strong> against MRI, MRI+YJIT, JRuby and TruffleRuby on the same programs (output
       checked byte-identical first). The interpreter runs ~3–6× MRI on compute-bound code and at parity where
