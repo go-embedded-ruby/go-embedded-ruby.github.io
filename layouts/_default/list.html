@@ -67,8 +67,17 @@
     <p class="cap">The pure-Go front-end and runtime, tested against real-world Ruby applications — parse, parse + compile, and end-to-end execution.</p>
     <div class="applist">
       <div class="appcard">
-        <h3>Front-end conformance</h3>
-        <p><b>~100% of all valid Ruby parsed</b> across Rails + Puppet — 99.96% of files; the 2 misses are syntax-error fixtures MRI itself rejects.</p>
+        <h3>Runtime conformance — ruby/spec</h3>
+        <p><b>21,982 examples pass</b> in ruby/spec's <code>language/</code> + <code>core/</code> suites, measured 2026-09-23 on <code>main</code> (<code>d498ddc</code>), four consecutive runs all identical.</p>
+        <ul>
+          <li>CI gates on a <b>shrink-only floor of 21,970</b>, raised there after wave 27. The floor is the level a run may not fall below — it is <b>not</b> the score. It sits just under the measured total <b>on purpose</b>: a margin of 12, wide enough to absorb the run-to-run jitter of <a href="https://github.com/go-embedded-ruby/ruby/issues/615">#615</a> and no wider, because a floor slack enough to hide the loss of a whole spec file would defeat what the ratchet exists to catch.</li>
+          <li>Of the examples that ran, <b>91.4%</b> pass (21,983 of 24,044); 473 more are skipped and 15 of 2,206 spec files produce no result.</li>
+          <li>The floor has climbed from <b>6,000</b> on 2026-08-03 to <b>21,970</b> across 27 waves. Two recent jumps were fixes to the <b>measurement</b> — the mspec shim, and a parser upgrade that made 13 previously-unparseable spec files visible — which are gains in what the measurement can <i>see</i>, not in what the VM can <i>do</i>.</li>
+        </ul>
+      </div>
+      <div class="appcard">
+        <h3>Front-end conformance <small>(measured 2026-06-27)</small></h3>
+        <p><b>~100% of all valid Ruby parsed</b> across Rails + Puppet — 99.96% of files; the 2 misses are syntax-error fixtures MRI itself rejects. Not re-measured since.</p>
         <ul>
           <li><b>Parse + compile:</b> Rails <b>99.82%</b> / Puppet <b>100%</b>, with <b>0 over-permissive</b>.</li>
           <li>RuboCop <b>99.7%</b>.</li>
