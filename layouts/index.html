@@ -24,7 +24,7 @@
         <a class="btn btn-primary" href="https://github.com/go-embedded-ruby/ruby">Get started →</a>
         <a class="btn btn-ghost" href="/performance/">See the benchmarks</a>
       </div>
-      <div class="trust"><span><b>21,901</b> ruby/spec examples passing</span><span><b>~100%</b> of real Ruby parsed</span><span><b>6</b> 64-bit arches</span></div>
+      <div class="trust"><span><b>21,982</b> ruby/spec examples passing</span><span><b>~100%</b> of real Ruby parsed</span><span><b>6</b> 64-bit arches</span></div>
     </div>
     <div class="term">
       <div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="t">rbgo — zsh</span></div>
@@ -57,7 +57,7 @@
       <div class="card"><div class="ico">🧩</div><h3>Truly embeddable</h3><p>A real object model — classes, mixins, <code>method_missing</code>, metaprogramming, Fiber — callable straight from Go.</p></div>
       <div class="card"><div class="ico">📦</div><h3>One static binary</h3><p>CGO=0 by default. Cross-compiles to amd64, arm64, riscv64, loong64, ppc64le and s390x.</p></div>
       <div class="card"><div class="ico">⚡</div><h3>AOT that flies</h3><p>Ahead-of-time method compilation to unboxed Go kernels — <b>18–24× over MRI+YJIT</b> on loop/fib.</p></div>
-      <div class="card"><div class="ico">✅</div><h3>Conformance-first</h3><p><b>21,901</b> ruby/spec <code>language/</code> + <code>core/</code> examples pass, gated in CI by a shrink-only floor of <b>21,740</b> — the floor is what CI refuses to fall below, not the score. Front-end: ~100% of valid Ruby parsed across Rails + Puppet (2026-06).</p></div>
+      <div class="card"><div class="ico">✅</div><h3>Conformance-first</h3><p><b>21,982</b> ruby/spec <code>language/</code> + <code>core/</code> examples pass, gated in CI by a shrink-only floor of <b>21,740</b> — the floor is what CI refuses to fall below, not the score. Front-end: ~100% of valid Ruby parsed across Rails + Puppet (2026-06).</p></div>
       <div class="card"><div class="ico">🔒</div><h3>Closed-world builds</h3><p><code>rbgo build --closed</code> bakes the program to bytecode and drops the front-end for a smaller binary.</p></div>
       <div class="card"><div class="ico">🌿</div><h3>A real ecosystem</h3><p>Built from the <b>go-ruby-*</b> family — each a 100%-coverage, 6-arch stdlib module, bound natively.</p></div>
     </div>
@@ -66,7 +66,7 @@
   <section id="perf" style="padding-top:10px"><div class="wrap">
     <div class="stats">
       <div><div class="n">18–24×</div><div class="l">rbgo+AOT vs MRI+YJIT (loop/fib)</div></div>
-      <div><div class="n">21,901</div><div class="l">ruby/spec examples passing · CI floor 21,740</div></div>
+      <div><div class="n">21,982</div><div class="l">ruby/spec examples passing · CI floor 21,740</div></div>
       <div><div class="n">178</div><div class="l">go-ruby-* modules bound into rbgo</div></div>
       <div><div class="n">CGO=0</div><div class="l">across 6 arches · 3 OSes</div></div>
     </div>
