@@ -18,13 +18,13 @@
 
   <div class="hero"><div class="wrap">
     <div>
-      <h1 class="head">A complete Ruby,<br><span class="accent">written in Go.</span></h1>
+      <h1 class="head">A Ruby you can embed,<br><span class="accent">written in Go.</span></h1>
       <p class="sub">go-embedded-ruby (<b>rbgo</b>) is a from-scratch Ruby — lexer, parser, compiler, bytecode VM and an AOT backend — that embeds in any Go program and cross-compiles to a single CGO-free binary. Built in the open as a <b>digital common</b> (<i>commun numérique</i>), free to use, study, modify and share under the BSD-3-Clause licence.</p>
       <div class="cta">
         <a class="btn btn-primary" href="https://github.com/go-embedded-ruby/ruby">Get started →</a>
         <a class="btn btn-ghost" href="/performance/">See the benchmarks</a>
       </div>
-      <div class="trust"><span><b>21,982</b> ruby/spec examples passing</span><span><b>~100%</b> of real Ruby parsed</span><span><b>6</b> 64-bit arches</span></div>
+      <div class="trust"><span><b>22,488</b> ruby/spec <code>language/</code>+<code>core/</code> examples passing</span><span><b>~100%</b> of real Ruby parsed</span><span><b>6</b> 64-bit arches</span></div>
     </div>
     <div class="term">
       <div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="t">rbgo — zsh</span></div>
@@ -32,9 +32,11 @@
 <span class="c-cmd">$ rbgo</span> -e <span class="c-str">'puts (1..20).reduce(:*)'</span>
 <span class="c-out">2432902008176640000</span>
 
-<span class="c-com"># AOT-compile the hot path to native Go</span>
+<span class="c-com"># AOT-compile the hot path and drop the front-end</span>
 <span class="c-cmd">$ rbgo</span> build --closed app.rb -o app
-<span class="c-out">→ app  (CGO=0, 1 file, runs anywhere)</span>
+<span class="c-out">rbgo build: app (1 method(s) AOT-compiled: Object#fib)</span>
+<span class="c-out">rbgo build: closed-world — front-end dropped</span>
+<span class="c-out">rbgo build: binary size 172.5 MiB</span>
 
 <span class="c-com"># the real Puppet CLI, end to end</span>
 <span class="c-cmd">$ rbgo</span> run puppet_apply.rb
@@ -54,10 +56,10 @@
     <h2>Everything a Ruby runtime gives you — as a Go library.</h2>
     <p class="lead">No FFI, no libruby, no system Ruby. Drop a genuine, monkey-patchable Ruby object model into your Go binary and ship it anywhere.</p>
     <div class="grid">
-      <div class="card"><div class="ico">🧩</div><h3>Truly embeddable</h3><p>A real object model — classes, mixins, <code>method_missing</code>, metaprogramming, Fiber — callable straight from Go.</p></div>
+      <div class="card"><div class="ico">🧩</div><h3>Embeddable</h3><p>A real object model — classes, mixins, <code>method_missing</code>, metaprogramming, Fiber. The Go API is deliberately small today: <code>ruby.Run(src, out)</code> runs a program on a fresh VM and writes its output to one writer. Calling a Ruby method from Go is not exposed yet.</p></div>
       <div class="card"><div class="ico">📦</div><h3>One static binary</h3><p>CGO=0 by default. Cross-compiles to amd64, arm64, riscv64, loong64, ppc64le and s390x.</p></div>
-      <div class="card"><div class="ico">⚡</div><h3>AOT that flies</h3><p>Ahead-of-time method compilation to unboxed Go kernels — <b>18–24× over MRI+YJIT</b> on loop/fib.</p></div>
-      <div class="card"><div class="ico">✅</div><h3>Conformance-first</h3><p><b>21,982</b> ruby/spec <code>language/</code> + <code>core/</code> examples pass, gated in CI by a shrink-only floor of <b>21,970</b> — the floor is what CI refuses to fall below, not the score. It sits just under the measured total by design: a margin wide enough for run-to-run jitter, narrow enough that losing a whole spec file still trips it. Front-end: ~100% of valid Ruby parsed across Rails + Puppet (2026-06).</p></div>
+      <div class="card"><div class="ico">⚡</div><h3>AOT for integer kernels</h3><p>Ahead-of-time compilation of integer-bound methods to unboxed Go. Measured on this project’s own micro-benchmarks (darwin/arm64, whole-process wall time): <b>8.7×</b> MRI+YJIT on the tight-loop case, <b>2.0×</b> on recursive <code>fib(35)</code>. Only methods the compiler can lower benefit.</p></div>
+      <div class="card"><div class="ico">✅</div><h3>Conformance, measured</h3><p><b>22,488</b> ruby/spec <code>language/</code> + <code>core/</code> examples pass, gated in CI by a shrink-only floor of <b>22,475</b> — the floor is what CI refuses to fall below, not the score. <b>Only <code>language/</code> and <code>core/</code> are swept:</b> <code>library/</code>, <code>optional/</code> and <code>security/</code> are not run, so this is not a percentage of Ruby. Front-end: ~100% of valid Ruby parsed across Rails + Puppet (2026-06).</p></div>
       <div class="card"><div class="ico">🔒</div><h3>Closed-world builds</h3><p><code>rbgo build --closed</code> bakes the program to bytecode and drops the front-end for a smaller binary.</p></div>
       <div class="card"><div class="ico">🌿</div><h3>A real ecosystem</h3><p>Built from the <b>go-ruby-*</b> family — each a 100%-coverage, 6-arch stdlib module, bound natively.</p></div>
     </div>
@@ -65,8 +67,8 @@
 
   <section id="perf" style="padding-top:10px"><div class="wrap">
     <div class="stats">
-      <div><div class="n">18–24×</div><div class="l">rbgo+AOT vs MRI+YJIT (loop/fib)</div></div>
-      <div><div class="n">21,982</div><div class="l">ruby/spec examples passing · CI floor 21,970</div></div>
+      <div><div class="n">8.7×</div><div class="l">rbgo+AOT vs MRI+YJIT, tight-loop benchmark (2.0× on <code>fib(35)</code>)</div></div>
+      <div><div class="n">22,488</div><div class="l">ruby/spec <code>language/</code>+<code>core/</code> examples passing · CI floor 22,475</div></div>
       <div><div class="n">178</div><div class="l">go-ruby-* modules bound into rbgo</div></div>
       <div><div class="n">CGO=0</div><div class="l">across 6 arches · 3 OSes</div></div>
     </div>
