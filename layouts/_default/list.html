@@ -54,9 +54,9 @@
 
   <section class="psec" style="padding-top:0"><div class="pwrap">
     <h2>B · Runtime micro-benchmarks</h2>
-    <p class="cap">rbgo's ahead-of-time backend compiles hot methods to unboxed Go kernels. Against MRI with YJIT enabled, on tight loop / <code>fib</code> kernels:</p>
+    <p class="cap">rbgo's ahead-of-time backend compiles integer-bound methods to unboxed Go kernels. Measured on this project's own micro-benchmarks (<code>bench/loop.rb</code>, <code>bench/fib.rb</code>) on darwin/arm64, best-of-N whole-process wall time, against MRI 4.0.5 with YJIT enabled:</p>
     <div class="pcards">
-      <div class="pcard"><div class="n">18–24×</div><h3>AOT vs MRI+YJIT</h3><p>rbgo+AOT beats MRI with YJIT enabled by <b>18–24×</b> on loop / <code>fib</code> — unboxed int64 kernels, no boxing on the hot path.</p></div>
+      <div class="pcard"><div class="n">8.7×</div><h3>AOT vs MRI+YJIT</h3><p>On the tight-loop benchmark, rbgo+AOT ran <b>8.7×</b> faster than MRI+YJIT (43&nbsp;ms vs 373&nbsp;ms). On recursive <code>fib(35)</code> the margin is <b>2.0×</b> (56&nbsp;ms vs 110&nbsp;ms) — recursion keeps the call overhead the loop case removes. Only methods the AOT backend can lower benefit at all.</p></div>
       <div class="pcard"><div class="n">245k → 1</div><h3>Small-integer interning</h3><p>Interned small integers drop a small-int loop from <b>~245,000 allocations to 1</b> — the hot integers are shared, immutable singletons.</p></div>
       <div class="pcard"><div class="n">~14%</div><h3>Frame recycling</h3><p>Capture-tracked frame recycling is <b>≈14% faster on fib</b>; frames are reused unless a closure captures them. Plus inline method caches on every call site.</p></div>
     </div>
@@ -68,11 +68,12 @@
     <div class="applist">
       <div class="appcard">
         <h3>Runtime conformance — ruby/spec</h3>
-        <p><b>21,982 examples pass</b> in ruby/spec's <code>language/</code> + <code>core/</code> suites, measured 2026-09-23 on <code>main</code> (<code>d498ddc</code>), four consecutive runs all identical.</p>
+        <p><b>22,488 examples pass</b> in ruby/spec's <code>language/</code> + <code>core/</code> suites, measured 2026-09-26 on <code>main</code> (<code>3e8e3cc</code>). Three independent runs — two through the ratchet at different timeouts, one through a separate sweep — reported the same total.</p>
         <ul>
-          <li>CI gates on a <b>shrink-only floor of 21,970</b>, raised there after wave 27. The floor is the level a run may not fall below — it is <b>not</b> the score. It sits just under the measured total <b>on purpose</b>: a margin of 12, wide enough to absorb the run-to-run jitter of <a href="https://github.com/go-embedded-ruby/ruby/issues/615">#615</a> and no wider, because a floor slack enough to hide the loss of a whole spec file would defeat what the ratchet exists to catch.</li>
-          <li>Of the examples that ran, <b>91.4%</b> pass (21,983 of 24,044); 473 more are skipped and 15 of 2,206 spec files produce no result.</li>
-          <li>The floor has climbed from <b>6,000</b> on 2026-08-03 to <b>21,970</b> across 27 waves. Two recent jumps were fixes to the <b>measurement</b> — the mspec shim, and a parser upgrade that made 13 previously-unparseable spec files visible — which are gains in what the measurement can <i>see</i>, not in what the VM can <i>do</i>.</li>
+          <li>CI gates on a <b>shrink-only floor of 22,475</b>. The floor is the level a run may not fall below — it is <b>not</b> the score: it is what CI guarantees, while the measured total is what one run did.</li>
+          <li><b>Only <code>language/</code> and <code>core/</code> are swept.</b> ruby/spec's <code>library/</code>, <code>optional/</code> and <code>security/</code> trees are not run at all, so this figure is <b>not</b> a percentage of Ruby, and most of the standard library sits outside it.</li>
+          <li>Of the examples that ran, <b>93.3%</b> pass (22,488 of 24,116); 477 more are skipped because our shim stubs the matcher they need, and 10 of 2,206 spec files produce no result. Skips and unreadable files sit outside the ratio entirely.</li>
+          <li>The floor has climbed from <b>6,000</b> on 2026-08-03 to <b>22,475</b>. Two earlier jumps were fixes to the <b>measurement</b> — the mspec shim, and a parser upgrade that made 13 previously-unparseable spec files visible — which are gains in what the measurement can <i>see</i>, not in what the VM can <i>do</i>.</li>
         </ul>
       </div>
       <div class="appcard">
