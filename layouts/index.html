@@ -13,7 +13,7 @@
     <a class="brand" href="/"><img class="glyph" src="/img/logo.svg" width="32" height="32" alt="go-embedded-ruby logo"> go-embedded-ruby</a>
     <nav><a href="#features">Features</a><a href="/performance/">Performance</a><a href="#road">Roadmap</a><a href="#eco">Ecosystem</a></nav>
     {{ partial "theme-toggle.html" . }}
-    <a class="btn btn-ghost" href="https://github.com/go-embedded-ruby/ruby">GitHub</a>
+    <a class="btn btn-ghost" href="https://github.com/go-embedded-ruby/ruby">{{ partial "icons/mark-github.html" . }}GitHub</a>
   </div></header>
 
   <div class="hero"><div class="wrap">
@@ -21,8 +21,8 @@
       <h1 class="head">A Ruby you can embed,<br><span class="accent">written in Go.</span></h1>
       <p class="sub">go-embedded-ruby (<b>rbgo</b>) is a from-scratch Ruby — lexer, parser, compiler, bytecode VM and an AOT backend — that embeds in any Go program and cross-compiles to a single CGO-free binary. Built in the open as a <b>digital common</b> (<i>commun numérique</i>), free to use, study, modify and share under the BSD-3-Clause licence.</p>
       <div class="cta">
-        <a class="btn btn-primary" href="https://github.com/go-embedded-ruby/ruby">Get started →</a>
-        <a class="btn btn-ghost" href="/performance/">See the benchmarks</a>
+        <a class="btn btn-primary" href="https://github.com/go-embedded-ruby/ruby">{{ partial "icons/rocket.html" . }}Get started →</a>
+        <a class="btn btn-ghost" href="/performance/">{{ partial "icons/graph.html" . }}See the benchmarks</a>
       </div>
       <div class="trust"><span><b>22,488</b> ruby/spec <code>language/</code>+<code>core/</code> examples passing</span><span><b>~100%</b> of real Ruby parsed</span><span><b>6</b> 64-bit arches</span></div>
     </div>
@@ -98,7 +98,7 @@
     <div class="band">
       <h2>Ruby that ships like Go.</h2>
       <p>One binary. Six architectures. No cgo, no runtime to install. Embed a real Ruby — or compile it away. Open infrastructure, governed as a commons.</p>
-      <a class="btn btn-ghost" href="https://github.com/go-embedded-ruby/ruby">Read the source on GitHub →</a>
+      <a class="btn btn-ghost" href="https://github.com/go-embedded-ruby/ruby">{{ partial "icons/mark-github.html" . }}Read the source on GitHub →</a>
     </div>
   </div></section>
 
