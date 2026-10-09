@@ -1,3 +1,10 @@
+{{/* This page draws its own dark theme (prefers-color-scheme and the
+     System/Light/Dark toggle). The Dark Reader extension otherwise repaints it
+     on top -- the hero's brand wash vanished under it on go-fft while the
+     same CSS showed on go-ndarray -- so it is told to stand down, as
+     go-pdfkit's page and our Hextra fork already do. This partial is
+     included in <head>, so every landing on the kit gets the flag. */}}
+<meta name="darkreader-lock">
 <script>
   /* Apply the saved theme before first paint to avoid a flash; "system" leaves no attribute. */
   (function(){var m=localStorage.getItem('theme');if(m&&m!=='system')document.documentElement.setAttribute('data-theme',m);})();
