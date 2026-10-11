@@ -33,6 +33,8 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
   chipBgDark = "rgba(240,71,90,.14)"
   chipBorderDark = "rgba(240,71,90,.32)"
   chipFgDark = "#f79aa4"
+  statsEnd = "#fbd3d7"
+  bandText = "#fde2e5"
 
 [[params.phases]]
   name = "Phase 0 — Vertical slice"
