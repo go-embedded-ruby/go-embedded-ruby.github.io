@@ -46,6 +46,27 @@ jobs:
         id: pages
         uses: actions/configure-pages@v6
 
+      # This page states rbgo's ruby/spec total in the present tense in four
+      # places, and on 2026-10-12 all of them said 22,488 while the gate's own
+      # file summed to 23,511 — and two of them described the gate as a
+      # "shrink-only floor of 22,475", a mechanism replaced by a per-file
+      # baseline in ruby#739. A number and a mechanism, both stale, on the first
+      # page anybody reads.
+      #
+      # The check sums the gate's own per-file baseline and compares it against
+      # every present-tense claim here. It is the same binary the docs site
+      # runs, consumed across repositories rather than copied: two readers of
+      # one file cannot drift, where two transcriptions of one number already
+      # had. A dated block ("measured <date>") is exempt, because a dated
+      # measurement going stale is not an error.
+      #
+      # It runs BEFORE hugo so a wrong figure fails the build instead of being
+      # published, and on pull requests as well as on main. An unreachable
+      # baseline exits 2 and fails the step: an unreadable baseline finds no
+      # disagreement either, and that silence would read as agreement.
+      - name: The stated conformance total matches rbgo's gate
+        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@main -root layouts
+
       - name: Build landing page
         run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 

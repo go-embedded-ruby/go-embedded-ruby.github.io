@@ -70,10 +70,10 @@
         <h3>Runtime conformance — ruby/spec</h3>
         <p><b>22,488 examples pass</b> in ruby/spec's <code>language/</code> + <code>core/</code> suites, measured 2026-09-26 on <code>main</code> (<code>3e8e3cc</code>). Three independent runs — two through the ratchet at different timeouts, one through a separate sweep — reported the same total.</p>
         <ul>
-          <li>CI gates on a <b>shrink-only floor of 22,475</b>. The floor is the level a run may not fall below — it is <b>not</b> the score: it is what CI guarantees, while the measured total is what one run did.</li>
+          <li>CI gates <b>file by file</b>, not on a total: no spec file may pass fewer examples than its recorded row, and none may stop loading. The sum of those rows is <b>23,511</b> at rbgo v0.3.0 (2026-10-12) — it is what CI guarantees, while the measured total above is what one dated run did. This replaced a single shrink-only floor of 22,475, which needed a margin wider than the largest spec file and so could not see a regression smaller than that.</li>
           <li><b>Only <code>language/</code> and <code>core/</code> are swept.</b> ruby/spec's <code>library/</code>, <code>optional/</code> and <code>security/</code> trees are not run at all, so this figure is <b>not</b> a percentage of Ruby, and most of the standard library sits outside it.</li>
           <li>Of the examples that ran, <b>93.3%</b> pass (22,488 of 24,116); 477 more are skipped because our shim stubs the matcher they need, and 10 of 2,206 spec files produce no result. Skips and unreadable files sit outside the ratio entirely.</li>
-          <li>The floor has climbed from <b>6,000</b> on 2026-08-03 to <b>22,475</b>. Two earlier jumps were fixes to the <b>measurement</b> — the mspec shim, and a parser upgrade that made 13 previously-unparseable spec files visible — which are gains in what the measurement can <i>see</i>, not in what the VM can <i>do</i>.</li>
+          <li>The guarantee has climbed from a floor of <b>6,000</b> on 2026-08-03 to a per-file baseline summing <b>23,511</b>. Two earlier jumps were fixes to the <b>measurement</b> — the mspec shim, and a parser upgrade that made 13 previously-unparseable spec files visible — which are gains in what the measurement can <i>see</i>, not in what the VM can <i>do</i>.</li>
         </ul>
       </div>
       <div class="appcard">
