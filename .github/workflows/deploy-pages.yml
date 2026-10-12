@@ -64,8 +64,21 @@ jobs:
       # published, and on pull requests as well as on main. An unreachable
       # baseline exits 2 and fails the step: an unreadable baseline finds no
       # disagreement either, and that silence would read as agreement.
+      #
+      # PINNED TO A TAG, not @main, and that is not tidiness. `@main` is not
+      # "the current main": it is whatever the module proxy last cached for the
+      # branch, and the lag is measurable --
+      #
+      #   $ go list -m github.com/go-embedded-ruby/docs@main
+      #   …v0.0.0-20261012071659-5a27ddae9f8d        # 07:16:59
+      #   $ gh api …/commits/main --jq .sha
+      #   3384011416dc…                             # 07:25:48
+      #
+      # The first version of this step used @main and failed on a branch whose
+      # figures were right, because the tool it ran was nine minutes old and
+      # could not yet see this page's phrasing. A tag resolves deterministically.
       - name: The stated conformance total matches rbgo's gate
-        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@main -root layouts
+        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.1.0 -root layouts
 
       - name: Build landing page
         run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
