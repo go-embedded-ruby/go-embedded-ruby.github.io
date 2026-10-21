@@ -77,8 +77,21 @@ jobs:
       # The first version of this step used @main and failed on a branch whose
       # figures were right, because the tool it ran was nine minutes old and
       # could not yet see this page's phrasing. A tag resolves deterministically.
+      #
+      # ⛔ THE FLAG IS `--root` SINCE docs v0.4.0, where the tool moved to cobra.
+      # `-root` is not a shorter spelling of it: pflag reads it as the cluster
+      # -r -o -o -t and the step fails with "unknown shorthand flag: 'r' in
+      # -root". The two are bumped TOGETHER for that reason -- a later bump that
+      # changed only the version would have met this during an upgrade that had
+      # nothing to do with it.
+      #
+      # Verified before bumping: the tool at that version reads THIS page's
+      # phrasing, 4 current claims against the gate's 23511. The vocabulary
+      # control still runs inside the tool on every invocation rather than only
+      # under `go test`, precisely because this consumer never runs that
+      # module's tests.
       - name: The stated conformance total matches rbgo's gate
-        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.1.0 -root layouts
+        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.4.0 --root layouts
 
       - name: Build landing page
         run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
