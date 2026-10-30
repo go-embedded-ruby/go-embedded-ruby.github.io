@@ -82,7 +82,14 @@
       {{ $tag := cond (eq .status "ready") "ready" "active" }}
       {{/* Card shows a trimmed blurb: the first sentence, or a word-boundary truncation if that sentence runs long. */}}
       {{/* Strip markdown emphasis/code markers so a truncation can never leave a half-open span. */}}
-      {{ $plain := replaceRE "[`*]" "" .blurb }}
+      {{/* ⛔ And REDUCE [text](url) TO ITS TEXT FIRST. The sentence split below ends at the
+           first ".", and a URL is full of them: Phase 8's blurb begins "measured against
+           [ruby/spec](https://github.com/ruby/spec)'s …", so the card rendered the literal
+           fragment "[ruby/spec](https://github." — a malformed link whose href resolved to
+           nothing. `landingkit links` found it as the one dead URL of 129 on the built site.
+           The card shows prose, never a link, so reducing the markdown is also what it wants. */}}
+      {{ $plain := replaceRE "\\[([^]]*)\\]\\([^)]*\\)" "$1" .blurb }}
+      {{ $plain = replaceRE "[`*]" "" $plain }}
       {{ $first := index (findRE "^[^.]+\\.?" $plain 1) 0 }}
       {{ $short := $first }}
       {{ if gt (len $first) 150 }}{{ $short = printf "%s…" (index (findRE "^.{0,140}\\b" $first 1) 0) }}{{ end }}
