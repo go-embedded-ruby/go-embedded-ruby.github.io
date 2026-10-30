@@ -90,8 +90,16 @@ jobs:
       # control still runs inside the tool on every invocation rather than only
       # under `go test`, precisely because this consumer never runs that
       # module's tests.
+      #
+      # ⛔ `--root .`, NOT `--root layouts`, since v0.5.0. This site states the
+      # total in THREE places, and `layouts/` holds two of them. The third is
+      # hugo.toml's `params.phases[].blurb` -- prose Hugo renders into the page
+      # like any other -- and it read 23,481 for 26 days under a green check,
+      # because neither the tool's `.md`/`.html` filter nor this root could
+      # reach it. v0.5.0 reads .toml; widening the root is what puts the third
+      # copy in the denominator. It checks 5 claims now, not 4.
       - name: The stated conformance total matches rbgo's gate
-        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.4.0 --root layouts
+        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.5.0 --root .
 
       - name: Build landing page
         run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
