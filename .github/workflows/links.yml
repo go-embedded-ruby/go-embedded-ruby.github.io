@@ -1,0 +1,50 @@
+# Every link and image of the BUILT site resolves.
+#
+# From go-fleettools/landingkit's `workflows/links.yml` template, which exists
+# because a dead link on a landing page breaks nothing that complains. This one
+# earned its place before it was wired: run by hand on 2026-10-30 it found one
+# of 129 URLs dead — `https://github`, the tail of a Markdown link the hero
+# card's first-sentence split had cut in half. The split is fixed in the same
+# change; this is what keeps the next one from shipping.
+#
+# The layouts hold template expressions rather than URLs, so the BUILT site is
+# what gets checked.
+#
+# The checker is `landingkit links`, run at the version go.mod pins: `go run`
+# without a version, inside a module that requires
+# github.com/go-fleettools/landingkit, uses that requirement — so Renovate's
+# bump of the partials bumps the checker with them. It probes github.com blob
+# links on raw.githubusercontent.com, because github.com answers a program's
+# request for a blob page with 503 most of the time.
+
+name: links
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    name: every link and image resolves
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+          cache: false
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.167.0"
+          extended: true
+      - run: hugo --minify --destination ./public
+      - name: Check
+        env:
+          GOWORK: "off"
+        run: go run github.com/go-fleettools/landingkit/cmd/landingkit links public
