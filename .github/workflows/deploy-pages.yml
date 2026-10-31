@@ -98,8 +98,34 @@ jobs:
       # because neither the tool's `.md`/`.html` filter nor this root could
       # reach it. v0.5.0 reads .toml; widening the root is what puts the third
       # copy in the denominator. It checks 5 claims now, not 4.
-      - name: The stated conformance total matches rbgo's gate
-        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.5.0 --root .
+      #
+      # ⛔ v0.6.0 ALSO CHECKS THE VERSION THE TOTAL WAS COUNTED AT, which is why
+      # this page now states it. `23,511 examples pass` is a count over a
+      # POPULATION, and the population is selected by the Ruby version the
+      # conformance shim resolves `ruby_version_is` guards at: at 3.4.1 every
+      # example behind a `ruby_version_is "4.0"` guard is removed from the suite
+      # before anything runs -- 61 block guards and 5 inline sites at that
+      # boundary -- so the figure describes 3.4-shaped behaviour while this page
+      # also says the project targets 4.0 semantics and names a 4.0.5 oracle.
+      # All true, and together they read as a 4.0 result.
+      #
+      # The version is read from BOTH files in the interpreter repository that
+      # spell it (`rubyVersion` and the shim's `CUR_VERSION`) and a disagreement
+      # between them is a refusal, not a verdict on this page. The DIFFERENTIAL
+      # ORACLE named here is a different claim, free to be newer, and is
+      # deliberately not matched.
+      #
+      # Verified with the exact published command this lane runs, fetched
+      # through the proxy:
+      #
+      #   $ go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.6.0 --root .
+      #   5 total claim(s) and 2 version claim(s) checked against the gate's 23511 at Ruby 3.4.1 (two copies, agreeing)
+      #
+      # "two copies, agreeing" is the interpreter repository's state today;
+      # go-embedded-ruby/ruby#845 collapses it to one and the same line will
+      # then read "derived from RUBY_VERSION", with nothing here to change.
+      - name: The stated conformance total, and the version it was counted at, match rbgo's gate
+        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.6.0 --root .
 
       - name: Build landing page
         run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
