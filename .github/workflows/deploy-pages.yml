@@ -118,14 +118,23 @@ jobs:
       # Verified with the exact published command this lane runs, fetched
       # through the proxy:
       #
-      #   $ go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.6.0 --root .
-      #   5 total claim(s) and 2 version claim(s) checked against the gate's 23511 at Ruby 3.4.1 (two copies, agreeing)
+      #   $ go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.7.0 --root .
+      #   6 total claim(s) and 1 version claim(s) checked against the gate's 23672 at Ruby 4.0.9 (derived from RUBY_VERSION)
       #
-      # "two copies, agreeing" is the interpreter repository's state today;
-      # go-embedded-ruby/ruby#845 collapses it to one and the same line will
-      # then read "derived from RUBY_VERSION", with nothing here to change.
+      # Two numbers in that line moved for reasons worth keeping apart. "1
+      # version claim … derived from RUBY_VERSION" is what the earlier comment
+      # here predicted: go-embedded-ruby/ruby#845 collapsed the two copies of
+      # the version into one, and nothing on this page had to change.
+      #
+      # SIX total claims, where v0.6.0 counted five, is a defect that version
+      # could not report. Its vocabulary spelled out "the sum is", "its sum is"
+      # and "whose sum is", so "The sum of those rows is <b>23,673</b>" in
+      # layouts/_default/list.html was never a candidate: the lane printed "5
+      # checked" and passed while that line held a stale figure. v0.7.0 reads
+      # it. Keep this pin moving forward -- a gate pinned to a version that
+      # cannot see a line is indistinguishable from a page with nothing wrong.
       - name: The stated conformance total, and the version it was counted at, match rbgo's gate
-        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.6.0 --root .
+        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.7.0 --root .
 
       - name: Build landing page
         run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
