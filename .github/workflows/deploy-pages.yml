@@ -118,8 +118,10 @@ jobs:
       # Verified with the exact published command this lane runs, fetched
       # through the proxy:
       #
-      #   $ go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.7.0 --root .
-      #   6 total claim(s) and 1 version claim(s) checked against the gate's 23672 at Ruby 4.0.9 (derived from RUBY_VERSION)
+      #   $ go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.8.0 --root .
+      #   6 total claim(s), 1 version claim(s) and 3 stubbed-helper mention(s) checked
+      #   against the gate's 23672 at Ruby 4.0.9 (derived from RUBY_VERSION);
+      #   the shim stubs output_to_fd, ruby_cmd, ruby_exe
       #
       # Two numbers in that line moved for reasons worth keeping apart. "1
       # version claim … derived from RUBY_VERSION" is what the earlier comment
@@ -133,8 +135,16 @@ jobs:
       # checked" and passed while that line held a stale figure. v0.7.0 reads
       # it. Keep this pin moving forward -- a gate pinned to a version that
       # cannot see a line is indistinguishable from a page with nothing wrong.
-      - name: The stated conformance total, and the version it was counted at, match rbgo's gate
-        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.7.0 --root .
+      #
+      # v0.8.0 adds a THIRD fact read out of the interpreter repository: which
+      # mspec helpers the shim stubs, derived from every `def … raise SpecSkip`
+      # in spec_helper.rb. This page said "our shim stubs the matcher they need"
+      # and named none of them, while conformance.md named two that are
+      # implemented and missed `ruby_cmd` entirely. The list is now stated here
+      # and checked in both directions -- a helper called stubbed that is not,
+      # and a stubbed helper this page names nowhere.
+      - name: The stated conformance total, the version it was counted at, and the stubbed helpers match rbgo's gate
+        run: go run github.com/go-embedded-ruby/docs/tools/conformancefigure@v0.8.0 --root .
 
       - name: Build landing page
         run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
