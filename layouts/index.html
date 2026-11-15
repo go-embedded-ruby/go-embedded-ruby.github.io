@@ -19,11 +19,9 @@
   <div class="hero"><div class="wrap">
     <div>
       <h1 class="head">A Ruby you can embed,<br><span class="accent">written in Go.</span></h1>
-      <p class="sub">go-embedded-ruby (<b>rbgo</b>) is a from-scratch Ruby — lexer, parser, compiler, bytecode VM and an AOT backend — that embeds in any Go program and cross-compiles to a single CGO-free binary. Built in the open as a <b>digital common</b> (<i>commun numérique</i>), free to use, study, modify and share under the BSD-3-Clause licence.</p>
-      <div class="cta">
-        <a class="btn btn-primary" href="https://github.com/go-embedded-ruby/ruby">{{ partial "icons/rocket.html" . }}Get started →</a>
-        <a class="btn btn-ghost" href="/performance/">{{ partial "icons/graph.html" . }}See the benchmarks</a>
-      </div>
+      <p class="sub">go-embedded-ruby (<b>rbgo</b>) is a from-scratch Ruby — lexer, parser, compiler, bytecode VM and an AOT backend — that embeds in any Go program and cross-compiles to a single {{ if not (partial "mantra-on.html" $) }}CGO-free{{ end }} binary. Built in the open as a <b>digital common</b> (<i>commun numérique</i>), free to use, study, modify and share under the {{ if not (partial "mantra-on.html" $) }}BSD-3-Clause{{ end }} licence.</p>
+      {{/* [[params.cta]] in hugo.toml: the kit renders the row */}}
+      {{ partial "cta.html" . }}
       <div class="trust"><span><b>23,672</b> ruby/spec <code>language/</code>+<code>core/</code> examples passing</span><span><b>~100%</b> of real Ruby parsed</span><span><b>6</b> 64-bit + <b>2</b> 32-bit arches</span></div>
     </div>
     <div class="term">
