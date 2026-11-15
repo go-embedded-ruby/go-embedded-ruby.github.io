@@ -107,6 +107,6 @@
     </div>
   </div></section>
 
-  <footer><div class="wrap"><span>🌐 A digital common (<i>commun numérique</i>) · © the go-embedded-ruby authors · BSD-3-Clause</span><span>Pure Go · CGO=0 · MRI-compatible</span></div></footer>
+  <footer><div class="wrap"><span>🌐 A digital common (<i>commun numérique</i>) · © the go-embedded-ruby authors{{ if not (partial "mantra-on.html" .) }} · BSD-3-Clause{{ end }}</span><span>{{ if not (partial "mantra-on.html" .) }}Pure Go · CGO=0 · {{ end }}MRI-compatible</span></div></footer>
 </body>
 </html>
